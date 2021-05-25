@@ -83,26 +83,28 @@ export default class ImageCarousel extends React.Component {
     }
     searchImage = (query) => {
         this.setState({ searchQuery: query });
-        var fetch_url = "https://api.unsplash.com/search/photos"
+        var fetch_api = "https://api.unsplash.com/search/photos"
         var query_string = "?query=" + query;
+        var limit = "?per_page=10"
         var client_id = "&client_id=drn3zQ5Y0vHaN5ThnOpBDWcJAZm1cKh1N2ks_GQjuE0"
-        var search_url = fetch_url + query_string + client_id;
+        var search_url = fetch_api +query_string+ limit + client_id;
         fetch(search_url)
         .then(response => response.json())
-        .then(json => {
-            const photoItems = json.results;
-            let firstIndex = 0;
-            photoItems.forEach(function(element){
-                element.index = firstIndex++;
-            })
-            const photoItem = photoItems[0];
-            this.setState({
-                photoItems,
-                photoItem,
-                length: photoItems.length,
-            })
+            .then(json => {
+                const photoItems = json.results;
+                let firstIndex = 0;
+                photoItems.forEach(function(element){
+                    element.index = firstIndex++;
+                })
+                const photoItem = photoItems[0];
+                this.setState({
+                    photoItems,
+                    photoItem,
+                    length: photoItems.length,
+                    done: true,
+                })
 
-        })
+            })
         .catch(function() {
             console.log("error");
         });
