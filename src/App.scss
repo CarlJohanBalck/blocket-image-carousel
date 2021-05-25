@@ -18,7 +18,7 @@
     }
   }
 $i: 0;
-@for $i from 0 through 30 {
+@for $i from 0 through 10 {
   .cards-slider.active-slide-#{$i} #card-#{$i} {
     opacity: 1;
     transform: scale(1);

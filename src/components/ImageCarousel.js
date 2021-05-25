@@ -98,8 +98,10 @@ export default class ImageCarousel extends React.Component {
             const photoItem = photoItems[0];
             this.setState({
                 photoItems,
-                photoItem
+                photoItem,
+                length: photoItems.length,
             })
+
         })
         .catch(function() {
             console.log("error");
@@ -111,7 +113,6 @@ export default class ImageCarousel extends React.Component {
         const current = this.state.current;
         const length = this.state.length;
         const searchQuery = this.state.searchQuery;
-        console.log("SEARCH QUERY: ", searchQuery);
         return (
             <React.Fragment>
                 <div>
@@ -128,7 +129,10 @@ export default class ImageCarousel extends React.Component {
                             <BiRightArrow className="right-arrow" onClick={this.nextSlide}/>
                             <BiLeftArrow className="left-arrow" onClick={this.prevSlide}/>
                             <Searchbar value={searchQuery} onChange={this.searchImage} className="searchbar"/>
-                            <div className={`cards-slider active-slide-${current}`}>
+
+
+
+                            {length === 0 ? (<h1>No photos was found 😭</h1>) : (<div className={`cards-slider active-slide-${current}`}>
                                 <div
                                     className="cards-slider-wrapper"
                                     style={{
@@ -144,7 +148,24 @@ export default class ImageCarousel extends React.Component {
                                         ></Card>
                                     ))}
                                 </div>
-                            </div>
+                            </div>)} 
+                            {/* <div className={`cards-slider active-slide-${current}`}>
+                                <div
+                                    className="cards-slider-wrapper"
+                                    style={{
+                                    transform: `translateX(-${current *
+                                        (100 / length)}%)`
+                                }}
+                                    >
+                                    {photoItems.map((photoItem, index) => (
+                                        <Card
+                                            photoItem={photoItem}
+                                            index={index}
+                                            key={index}
+                                        ></Card>
+                                    ))}
+                                </div>
+                            </div> */}
                             <div>
                         </div>
                         </FadeIn>
