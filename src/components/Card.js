@@ -1,22 +1,13 @@
 import React from 'react'
 
-export default class Card extends React.Component {
-    constructor(props) {
-      
-        super(props);
-        this.state = {
-          photoItem: props.photoItem,
-          index: props.index       
-        };
-      }
+const Card = ({photoItem, index}) => {
+  const {regular} = photoItem.urls;
 
-    render() {
-        const photoItem = this.state.photoItem;
-        const {regular} = photoItem.urls;
-        return (
-            <div>
-               <img src={regular} alt="card"></img>
-            </div>
-        )
-    }
+  return (
+    <div id={`card-${index}`} className="card">
+      <img src={regular} alt="travel image" className="image"/>
+    </div>
+  )
 }
+
+export default Card;

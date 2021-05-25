@@ -1,6 +1,7 @@
 import React from 'react'
 import Lottie from "react-lottie";
 import FadeIn from "react-fade-in";
+import {BiRightArrow, BiLeftArrow} from 'react-icons/bi' 
 
 import * as imageLoader from '../assets/loading.json';
 
@@ -67,6 +68,8 @@ export default class ImageCarousel extends React.Component {
                         </FadeIn>
                     ) : (
                         <FadeIn>
+                            <BiRightArrow className="right-arrow"/>
+                            <BiLeftArrow className="left-arrow"/>
                             <div>
                                 {photoItems.map((photoItem, index) => (
                                     <Card
