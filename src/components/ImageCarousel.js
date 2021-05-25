@@ -90,21 +90,28 @@ export default class ImageCarousel extends React.Component {
         fetch(search_url)
         .then(response => response.json())
         .then(json => {
-            const results = json.results;
+            const photoItems = json.results;
+            let firstIndex = 0;
+            photoItems.forEach(function(element){
+                element.index = firstIndex++;
+            })
+            const photoItem = photoItems[0];
             this.setState({
-                photoItems: results
+                photoItems,
+                photoItem
             })
         })
         .catch(function() {
             console.log("error");
         });
-
+        
     }
     render() {
         const photoItems = this.state.photoItems;
         const current = this.state.current;
         const length = this.state.length;
         const searchQuery = this.state.searchQuery;
+        console.log("SEARCH QUERY: ", searchQuery);
         return (
             <React.Fragment>
                 <div>
@@ -120,7 +127,7 @@ export default class ImageCarousel extends React.Component {
 
                             <BiRightArrow className="right-arrow" onClick={this.nextSlide}/>
                             <BiLeftArrow className="left-arrow" onClick={this.prevSlide}/>
-                            <Searchbar value={searchQuery} onChange={this.searchImage}/>
+                            <Searchbar value={searchQuery} onChange={this.searchImage} className="searchbar"/>
                             <div className={`cards-slider active-slide-${current}`}>
                                 <div
                                     className="cards-slider-wrapper"
@@ -148,3 +155,4 @@ export default class ImageCarousel extends React.Component {
     }
 }
 
+ 

@@ -5,7 +5,7 @@ const Searchbar = ({ value, onChange }) => {
     <input
       type="text"
       name="query"
-      className="form-control my-3"
+      className="searchbar"
       placeholder="Search image"
       value={value}
       onChange={e => onChange(e.currentTarget.value)}

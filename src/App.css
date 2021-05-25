@@ -35,3 +35,7 @@
   cursor: pointer;
   user-select: none;
 }
+
+.searchbar{
+  font-size: 18px;
+}
