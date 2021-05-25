@@ -2,6 +2,7 @@ import React from 'react'
 import Lottie from "react-lottie";
 import FadeIn from "react-fade-in";
 import {BiRightArrow, BiLeftArrow} from 'react-icons/bi' 
+import "../App.scss";
 
 import * as imageLoader from '../assets/loading.json';
 
@@ -54,8 +55,35 @@ export default class ImageCarousel extends React.Component {
         });
         
     }
+    nextSlide = () => {
+        const photoItems = this.state.photoItems;
+        const length = this.state.length;
+        let newIndex = this.state.photoItem.index + 1;
+        if(newIndex === length){
+            newIndex = 0;
+        }
+        this.setState({
+            photoItem: photoItems[newIndex],
+            current: newIndex
+        }) 
+        
+    }
+    prevSlide = () =>{
+        const photoItems = this.state.photoItems;
+        const length = this.state.length;
+        let newIndex = this.state.photoItem.index - 1;
+        if(newIndex <= 0){
+            newIndex = length-1;
+        }
+        this.setState({
+            photoItem: photoItems[newIndex],
+            current: newIndex
+        }) 
+    }
     render() {
         const photoItems = this.state.photoItems;
+        const current = this.state.current;
+        const length = this.state.length
         return (
             <React.Fragment>
                 <div>
@@ -68,17 +96,27 @@ export default class ImageCarousel extends React.Component {
                         </FadeIn>
                     ) : (
                         <FadeIn>
-                            <BiRightArrow className="right-arrow"/>
-                            <BiLeftArrow className="left-arrow"/>
-                            <div>
-                                {photoItems.map((photoItem, index) => (
-                                    <Card
-                                        photoItem={photoItem}
-                                        index={index}
-                                        key={index}
-                                    ></Card>
-                                ))}
+                            <BiRightArrow className="right-arrow" onClick={this.nextSlide}/>
+                            <BiLeftArrow className="left-arrow" onClick={this.prevSlide}/>
+                            <div className={`cards-slider active-slide-${current}`}>
+                                <div
+                                    className="cards-slider-wrapper"
+                                    style={{
+                                    transform: `translateX(-${current *
+                                        (100 / length)}%)`
+                                }}
+                                    >
+                                    {photoItems.map((photoItem, index) => (
+                                        <Card
+                                            photoItem={photoItem}
+                                            index={index}
+                                            key={index}
+                                        ></Card>
+                                    ))}
+                                </div>
                             </div>
+                            <div>
+                        </div>
                         </FadeIn>
                     )}
                 </div>
