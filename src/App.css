@@ -28,7 +28,8 @@
   color: #61dafb;
 }
 .lottie{
-  height: 100%;
+  margin-top: 300px;
+  text-align: center;
 }
 
 @keyframes App-logo-spin {
