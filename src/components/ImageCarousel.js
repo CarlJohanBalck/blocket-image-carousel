@@ -2,6 +2,7 @@ import React from 'react'
 import Lottie from "react-lottie";
 import FadeIn from "react-fade-in";
 import {BiRightArrow, BiLeftArrow} from 'react-icons/bi' 
+import Searchbar from './Searchbar';
 import "../App.scss";
 
 import * as imageLoader from '../assets/loading.json';
@@ -80,10 +81,30 @@ export default class ImageCarousel extends React.Component {
             current: newIndex
         }) 
     }
+    searchImage = (query) => {
+        this.setState({ searchQuery: query });
+        var fetch_url = "https://api.unsplash.com/search/photos"
+        var query_string = "?query=" + query;
+        var client_id = "&client_id=drn3zQ5Y0vHaN5ThnOpBDWcJAZm1cKh1N2ks_GQjuE0"
+        var search_url = fetch_url + query_string + client_id;
+        fetch(search_url)
+        .then(response => response.json())
+        .then(json => {
+            const results = json.results;
+            this.setState({
+                photoItems: results
+            })
+        })
+        .catch(function() {
+            console.log("error");
+        });
+
+    }
     render() {
         const photoItems = this.state.photoItems;
         const current = this.state.current;
-        const length = this.state.length
+        const length = this.state.length;
+        const searchQuery = this.state.searchQuery;
         return (
             <React.Fragment>
                 <div>
@@ -96,8 +117,10 @@ export default class ImageCarousel extends React.Component {
                         </FadeIn>
                     ) : (
                         <FadeIn>
+
                             <BiRightArrow className="right-arrow" onClick={this.nextSlide}/>
                             <BiLeftArrow className="left-arrow" onClick={this.prevSlide}/>
+                            <Searchbar value={searchQuery} onChange={this.searchImage}/>
                             <div className={`cards-slider active-slide-${current}`}>
                                 <div
                                     className="cards-slider-wrapper"
