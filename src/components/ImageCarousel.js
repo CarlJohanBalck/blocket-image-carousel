@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import Lottie from "react-lottie";
 import FadeIn from "react-fade-in";
 import {BiRightArrow, BiLeftArrow} from 'react-icons/bi' 
-import Searchbar from './Searchbar';
 import "../App.scss";
 import * as imageLoader from '../assets/loading.json';
 import Card from './Card'
@@ -33,9 +32,7 @@ function ImageCarousel(props) {
         fetch("https://api.unsplash.com/photos?client_id=drn3zQ5Y0vHaN5ThnOpBDWcJAZm1cKh1N2ks_GQjuE0")
         .then(response => response.json())
         .then(json => {
-            console.log("JSON: ", json)
             setSlideState({
-                current: 0,
                 photoItems: json,
                 photoItem: json[0],
                 length: json.length,
@@ -71,9 +68,6 @@ function ImageCarousel(props) {
 
                             <BiRightArrow className="right-arrow" onClick={nextSlide}/>
                             <BiLeftArrow className="left-arrow" onClick={prevSlide}/>
-                            {/* <Searchbar value={searchQuery} onChange={this.searchImage} className="searchbar"/> */}
-
-
 
                             {length === 0 ? (<h1>No photos was found 😭</h1>) : (<div className={`cards-slider active-slide-${current}`}>
                                 <div

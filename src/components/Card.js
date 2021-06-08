@@ -5,7 +5,7 @@ const Card = ({photoItem, index}) => {
 
   return (
     <div id={`card-${index}`} className="card">
-      <img src={regular} alt="travel image" className="image"/>
+      <img src={regular} alt="" className="image"/>
     </div>
   )
 }
