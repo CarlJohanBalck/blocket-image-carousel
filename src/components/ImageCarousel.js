@@ -2,10 +2,9 @@ import React, {useState, useEffect} from 'react';
 import Lottie from "react-lottie";
 import FadeIn from "react-fade-in";
 import {BiRightArrow, BiLeftArrow} from 'react-icons/bi' 
-import "../App.scss";
+import "../scss/App.scss";
 import * as imageLoader from '../assets/loading.json';
 import Card from './Card'
-
 
 function ImageCarousel(props) {
 
@@ -65,17 +64,16 @@ function ImageCarousel(props) {
                         </FadeIn>
                     ) : (
                         <FadeIn>
-
                             <BiRightArrow className="right-arrow" onClick={nextSlide}/>
                             <BiLeftArrow className="left-arrow" onClick={prevSlide}/>
 
-                            {length === 0 ? (<h1>No photos was found 😭</h1>) : (<div className={`cards-slider active-slide-${current}`}>
-                                <div
+                            {length === 0 ? (<h1>No photos was found 😭</h1>) : (
+                            <div className={`cards-slider active-slide-${current}`}>
+                                <div 
                                     className="cards-slider-wrapper"
-                                    style={{
-                                    transform: `translateX(-${current *
+                                    style={{ transform: `translateX(-${current *
                                         (100 / length)}%)`
-                                }}
+                                    }}
                                     >
                                     {photoItems.map((photoItem, index) => (
                                         <Card
@@ -86,8 +84,8 @@ function ImageCarousel(props) {
                                     ))}
                                 </div>
                             </div>)} 
-                            <div>
-                        </div>
+                        <div>
+                    </div>
                         </FadeIn>
                     )}
                 </div>
